@@ -12,10 +12,14 @@ public class MainMenuUIManager : MonoBehaviour
 	[SerializeField] private GameObject mainMenuPanelUIGO;
 	[SerializeField] private GameObject creditsPanelUIGO;
 
+	private FadeScreenImageUI fadeScreenImageUI;
+
 	private readonly string GAMEPLAY_SCENE_NAME = "Gameplay";
 
 	private void Awake()
 	{
+		fadeScreenImageUI = FindObjectOfType<FadeScreenImageUI>();
+		
 		RegisterToListeners(true);
 	}
 
@@ -30,6 +34,21 @@ public class MainMenuUIManager : MonoBehaviour
 		RegisterToButtonListener(creditsButtonUI, OnCreditsButtonClick, register);
 		RegisterToButtonListener(exitButtonUI, OnExitButtonClick, register);
 		RegisterToButtonListener(backFromCreditsButtonUI, OnBackFromCreditsButtonClick, register);
+
+		if(register)
+		{
+			if(fadeScreenImageUI != null)
+			{
+				fadeScreenImageUI.fadeWasFinishedEvent.AddListener(OnFadeWasFinished);
+			}
+		}
+		else
+		{
+			if(fadeScreenImageUI != null)
+			{
+				fadeScreenImageUI.fadeWasFinishedEvent.RemoveListener(OnFadeWasFinished);
+			}
+		}
 	}
 
 	private void RegisterToButtonListener(Button button, UnityAction onClick, bool register)
@@ -51,7 +70,10 @@ public class MainMenuUIManager : MonoBehaviour
 
 	private void OnStartGameButtonClick()
 	{
-		SceneManager.LoadScene(GAMEPLAY_SCENE_NAME);
+		if(fadeScreenImageUI != null)
+		{
+			fadeScreenImageUI.SetFadeOut(false);
+		}
 	}
 
 	private void OnCreditsButtonClick()
@@ -80,6 +102,14 @@ public class MainMenuUIManager : MonoBehaviour
 		if(go != null)
 		{
 			go.SetActive(active);
+		}
+	}
+
+	private void OnFadeWasFinished(bool fadeOut)
+	{
+		if(!fadeOut)
+		{
+			SceneManager.LoadScene(GAMEPLAY_SCENE_NAME);
 		}
 	}
 }

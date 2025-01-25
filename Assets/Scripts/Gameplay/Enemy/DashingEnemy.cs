@@ -5,12 +5,13 @@ public class DashingEnemy : Enemy
 	[SerializeField, Min(0f)] private float distanceToDash = 7f;
 	[SerializeField, Min(1f)] private float dashMovementSpeedMultiplier = 7f;
 	[SerializeField, Min(0f)] private float dashStopDuration = 2f;
+	[SerializeField, Min(0f)] private float additionalDistanceToDashPoint = 3f;
 
 	private bool isDashing;
 	private bool isStopped;
 	private Vector2 dashPoint;
 
-	private readonly float DISTANCE_TO_DASH_POINT_THRESHOLD = 1f;
+	private readonly float DISTANCE_TO_DASH_POINT_THRESHOLD = 2f;
 	
 	protected override void FixedUpdate()
 	{
@@ -19,10 +20,10 @@ public class DashingEnemy : Enemy
 			return;
 		}
 
-		if(!isDashing && IsCloseToPosition(target.position, distanceToDash))
+		if(!isStopped && !isDashing && IsCloseToPosition(target.position, distanceToDash))
 		{
 			isDashing = true;
-			dashPoint = target.position;
+			dashPoint = target.position + (target.transform.position - transform.position).normalized*additionalDistanceToDashPoint;
 		}
 
 		if(!isStopped && isDashing && IsCloseToPosition(dashPoint, DISTANCE_TO_DASH_POINT_THRESHOLD))

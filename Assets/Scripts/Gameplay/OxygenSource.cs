@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OxygenSource : MonoBehaviour, IAttachable
@@ -12,6 +10,8 @@ public class OxygenSource : MonoBehaviour, IAttachable
     [SerializeField] float radius = 5;
 
     GameObject player;
+
+	public bool PlayerIsAttached() => player != null;
 
     private void Start()
     {

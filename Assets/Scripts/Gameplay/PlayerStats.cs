@@ -19,16 +19,19 @@ public class PlayerStats : MonoBehaviour
 
 	private bool isLosingOxygen = true;
 	private bool wasDied;
+	private OxygenSource oxygenSource;
 
 	private void Awake()
 	{
 		AttachedStatus += ChangeAttachedStatus;
 		Gun.ReloadStatus += GunReload;
+
+		oxygenSource = FindAnyObjectByType<OxygenSource>();
 	}
 
 	private void GunReload(object sender, bool e)
 	{
-		if(e)
+		if(e && (oxygenSource == null || !oxygenSource.PlayerIsAttached()))
 		{
 			shotgunShellAmount--;
 		}

@@ -28,6 +28,11 @@ public class Timer : MonoBehaviour
 		timerFinishedEvent?.Invoke();
 	}
 
+	public void SetDuration(float duration)
+	{
+		this.duration = duration;
+	}
+
 	private void Start()
 	{
 		if(startImmediately)

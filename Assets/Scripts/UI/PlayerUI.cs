@@ -5,11 +5,11 @@ public class PlayerUI : MonoBehaviour
 {
     public UnityEvent<bool> PlayerReloadStatusChangedEvent;
 	
-	private AmmoPanelUI ammoPanelUI;
+	private AmmoCounterPanelUI ammoCounterPanelUI;
 
 	private void Awake()
 	{
-		ammoPanelUI = FindAnyObjectByType<AmmoPanelUI>();
+		ammoCounterPanelUI = FindAnyObjectByType<AmmoCounterPanelUI>();
 	}
 
     private void Start()
@@ -20,17 +20,17 @@ public class PlayerUI : MonoBehaviour
 
     private void ChangeReloadStatus(object sender, bool startedReloading)
     {
-        if(ammoPanelUI != null)
+        if(ammoCounterPanelUI != null)
 		{
-			ammoPanelUI.SetAmmoTextColor(startedReloading);
+			ammoCounterPanelUI.SetAmmoTextColor(startedReloading);
 		}
     }
 
     private void UpdateUI(object sender, PlayerStats e)
     {
-        if(ammoPanelUI != null)
+        if(ammoCounterPanelUI != null)
 		{
-			ammoPanelUI.SetAmmoValue(e.shotgunShellAmount, e.initialShotgunShellAmount);
+			ammoCounterPanelUI.SetAmmoValue(e.shotgunShellAmount, e.initialShotgunShellAmount);
 		}
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7048176497942904734}
   - component: {fileID: 255916016882624135}
   m_Layer: 5
-  m_Name: FadeScreenImageUI
+  m_Name: FadeScreenImageUIPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -46,8 +46,10 @@ GameObject:
   - component: {fileID: 310996942138812581}
   - component: {fileID: 6540205377674760756}
   - component: {fileID: 3829315981976063769}
+  - component: {fileID: 6606786389039873463}
+  - component: {fileID: 3976516022349728101}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdf4fbe73cca1542b873a21e8e84d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDiedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   HP: 100
   initialHP: 100
   initialShotgunShellAmount: 5
@@ -188,7 +193,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472932543
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -273,6 +278,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6606786389039873463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742571945554062063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9d4573030548644873571d65d441f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3976516022349728101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742571945554062063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acefde4ff5aaca04385fc0d76dc0df51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diggableResourceUpdatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6204460031551854185
 GameObject:
   m_ObjectHideFlags: 0

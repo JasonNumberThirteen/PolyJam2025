@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    
-
     Rigidbody2D rb;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
@@ -37,13 +31,12 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     private void Start()
     {
         InputEvents.MoveAction += Move;
         InputEvents.JumpAction += Jump;
     }
-
-    
 
     private void OnDisable()
     {
@@ -87,11 +80,9 @@ public class Movement : MonoBehaviour
             {
                 rb.AddForce(-Vector2.up * fallPower);
             }
-            
         }
         else
         {
-            
             if (!isGrounded)
             {
                 currentJumpTime = jumpTime;
@@ -130,7 +121,6 @@ public class Movement : MonoBehaviour
         }
 
         rb.AddForce(moveDirection * moveSpeed);
-
 
         if (limitMovement)
         {

@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
 	public static EventHandler<PlayerStats> PlayerStatsChanged;
 	public static EventHandler<bool> AttachedStatus;
 
+	public UnityEvent playerReachedLowOxygenLevelEvent;
+	public UnityEvent playerReachedStableOxygenLevelEvent;
 	public UnityEvent playerDiedEvent;
 
 	public float HP = 100f;
@@ -16,10 +18,12 @@ public class PlayerStats : MonoBehaviour
 
 	[SerializeField] private float oxygenLossSpeed;
 	[SerializeField] private float oxygenGainSpeed;
+	[SerializeField, Range(0f, 1f)] private float lowOxygenLevelPercentThreshold = 0.25f;
 
 	private bool isLosingOxygen = true;
 	private bool wasDied;
 	private OxygenSource oxygenSource;
+	private PlayerOxygenLevelType playerOxygenLevelType = PlayerOxygenLevelType.Stable;
 
 	private void Awake()
 	{
@@ -69,15 +73,27 @@ public class PlayerStats : MonoBehaviour
 		{
 			HP = initialHP;
 		}
+		else if(GetHPPercent() >= lowOxygenLevelPercentThreshold && playerOxygenLevelType != PlayerOxygenLevelType.Stable)
+		{
+			playerOxygenLevelType = PlayerOxygenLevelType.Stable;
+
+			playerReachedStableOxygenLevelEvent?.Invoke();
+		}
 	}
 
 	void LoseOxygen()
 	{
 		HP -= Time.deltaTime * oxygenLossSpeed;
 
-		if (HP < 0)
+		if(HP < 0)
 		{
 			Die(); 
+		}
+		else if(GetHPPercent() < lowOxygenLevelPercentThreshold && playerOxygenLevelType != PlayerOxygenLevelType.Low)
+		{
+			playerOxygenLevelType = PlayerOxygenLevelType.Low;
+
+			playerReachedLowOxygenLevelEvent?.Invoke();
 		}
 	}
 
@@ -93,4 +109,6 @@ public class PlayerStats : MonoBehaviour
 
 		playerDiedEvent?.Invoke();
 	}
+
+	private float GetHPPercent() => initialHP > 0 ? HP / initialHP : 0f;
 }

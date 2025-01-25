@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(RawImage), typeof(Timer))]
 public class FadeScreenImageUI : MonoBehaviour
@@ -13,7 +13,7 @@ public class FadeScreenImageUI : MonoBehaviour
 	private RawImage rawImage;
 	private Timer timer;
 
-	public void SetFadeOut(bool fadeOut)
+	public void StartFading(bool fadeOut)
 	{
 		this.fadeOut = fadeOut;
 
@@ -73,8 +73,6 @@ public class FadeScreenImageUI : MonoBehaviour
 	{
 		var color = rawImage.color;
 		var progress = timer.GetProgress();
-
-		//Debug.Log(progress);
 
 		color.a = fadeOut ? 1 - progress : progress;
 

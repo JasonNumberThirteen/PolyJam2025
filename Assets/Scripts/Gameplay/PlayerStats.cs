@@ -1,86 +1,93 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static EventHandler<PlayerStats> PlayerStatsChanged;
-    public static EventHandler<bool> AttachedStatus;
+	public static EventHandler<PlayerStats> PlayerStatsChanged;
+	public static EventHandler<bool> AttachedStatus;
 
-    public float HP = 100f;
-    public float initialHP = 100f;
-    public int initialShotgunShellAmount = 4;
-    public int shotgunShellAmount = 4;
+	public UnityEvent playerDiedEvent;
 
-    [SerializeField] private float oxygenLossSpeed;
-    [SerializeField] private float oxygenGainSpeed;
-    bool isLosingOxygen = true;
+	public float HP = 100f;
+	public float initialHP = 100f;
+	public int initialShotgunShellAmount = 4;
+	public int shotgunShellAmount = 4;
 
-    private void Awake()
-    {
-        AttachedStatus += ChangeAttachedStatus;
-        Gun.ReloadStatus += GunReload;
-    }
+	[SerializeField] private float oxygenLossSpeed;
+	[SerializeField] private float oxygenGainSpeed;
 
-    private void GunReload(object sender, bool e)
-    {
-        if(e)
-        {
-            shotgunShellAmount--;
-        }
+	private bool isLosingOxygen = true;
+	private bool wasDied;
 
-        if(shotgunShellAmount <= 0)
-        {
-            Gun.OutOfAmmoStatus.Invoke(this, true);
-            shotgunShellAmount = 0;
-        }
-    }
+	private void Awake()
+	{
+		AttachedStatus += ChangeAttachedStatus;
+		Gun.ReloadStatus += GunReload;
+	}
 
-    private void ChangeAttachedStatus(object sender, bool e)
-    {
-        isLosingOxygen = !e;
+	private void GunReload(object sender, bool e)
+	{
+		if(e)
+		{
+			shotgunShellAmount--;
+		}
 
-        shotgunShellAmount = initialShotgunShellAmount;
-        Gun.OutOfAmmoStatus.Invoke(this, false);
-    }
+		if(shotgunShellAmount <= 0)
+		{
+			Gun.OutOfAmmoStatus.Invoke(this, true);
+			shotgunShellAmount = 0;
+		}
+	}
 
-    private void Update()
-    {
-        PlayerStatsChanged.Invoke(this, this);
+	private void ChangeAttachedStatus(object sender, bool e)
+	{
+		isLosingOxygen = !e;
 
-        if (isLosingOxygen)
-            LoseOxygen();
-        else
-            GainOxygen();
-    }
+		shotgunShellAmount = initialShotgunShellAmount;
+		Gun.OutOfAmmoStatus.Invoke(this, false);
+	}
 
-    void GainOxygen()
-    {
-        HP += Time.deltaTime * oxygenGainSpeed;
+	private void Update()
+	{
+		PlayerStatsChanged.Invoke(this, this);
 
-        if(HP > initialHP)
-        {
-            HP = initialHP;
-        }
-    }
+		if (isLosingOxygen)
+			LoseOxygen();
+		else
+			GainOxygen();
+	}
 
-    void LoseOxygen()
-    {
-        HP -= Time.deltaTime * oxygenLossSpeed;
+	void GainOxygen()
+	{
+		HP += Time.deltaTime * oxygenGainSpeed;
 
-        if (HP < 0)
-        {
-            Die(); 
-        }
-    }
+		if(HP > initialHP)
+		{
+			HP = initialHP;
+		}
+	}
 
-    void Die()
-    {
-        HP = 0;
-        Debug.Log("DEAD");
-    }
+	void LoseOxygen()
+	{
+		HP -= Time.deltaTime * oxygenLossSpeed;
 
+		if (HP < 0)
+		{
+			Die(); 
+		}
+	}
 
-    
+	void Die()
+	{
+		if(wasDied)
+		{
+			return;
+		}
+
+		HP = 0;
+		wasDied = true;
+
+		playerDiedEvent?.Invoke();
+	}
 }

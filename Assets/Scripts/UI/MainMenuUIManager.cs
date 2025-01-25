@@ -72,7 +72,7 @@ public class MainMenuUIManager : MonoBehaviour
 	{
 		if(fadeScreenImageUI != null)
 		{
-			fadeScreenImageUI.SetFadeOut(false);
+			fadeScreenImageUI.StartFading(false);
 		}
 	}
 

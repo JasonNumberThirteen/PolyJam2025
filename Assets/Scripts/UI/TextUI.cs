@@ -7,6 +7,11 @@ public class TextUI : MonoBehaviour
 	private TextMeshProUGUI text;
 	private Color initialColor;
 
+	public void SetTextEnabled(bool enabled)
+	{
+		text.enabled = enabled;
+	}
+
 	public void SetText(string newText)
 	{
 		text.text = newText;
@@ -22,7 +27,7 @@ public class TextUI : MonoBehaviour
 		text.color = initialColor;
 	}
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		text = GetComponent<TextMeshProUGUI>();
 		initialColor = text.color;

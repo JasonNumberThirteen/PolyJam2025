@@ -8,13 +8,16 @@ public class Gun : MonoBehaviour
 
     Movement movement;
     [SerializeField] float shotgunKnockback = 5f;
-
     [SerializeField] float shotReload = 2f;
     [SerializeField] float shotReloadTimer = 0f;
+	[SerializeField, Min(1)] private int damage = 1;
+	[SerializeField, Min(0.01f)] private float shotgunRange = 10f;
+	[SerializeField] private LayerMask shotgunLayerMask;
 	[SerializeField] private AudioSource shotgunShotSoundAudioSource;
 	[SerializeField] private AudioSource shotgunReloadSoundAudioSource;
     bool hasShot = false;
     bool outOfAmmo = false;
+
     private void Awake()
     {
         movement = GetComponent<Movement>();
@@ -43,15 +46,25 @@ public class Gun : MonoBehaviour
 
         if(!hasShot) 
         {
-            Plane plane = new Plane(Vector3.back, Vector3.zero);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var plane = new Plane(Vector3.back, Vector3.zero);
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
             if (plane.Raycast(ray, out float enter))
             {
-                Vector3 worldPosition = ray.GetPoint(enter);
+                var worldPosition = ray.GetPoint(enter);
+                var forceDirection = transform.position - worldPosition;
 
-                Vector2 forceDirection = transform.position - worldPosition;
                 movement.SendImpulse(forceDirection.normalized * shotgunKnockback);
+
                 hasShot = true;
+
+				var shotDirection = worldPosition - transform.position;
+				var hit2D = Physics2D.Raycast(ray.origin, ray.direction, shotgunRange, shotgunLayerMask);
+				
+				if(hit2D.collider != null && hit2D.collider.TryGetComponent(out Enemy enemy))
+				{
+					enemy.TakeDamage(damage);
+				}
 
 				if(shotgunShotSoundAudioSource != null)
 				{
@@ -88,5 +101,4 @@ public class Gun : MonoBehaviour
             ReloadStatus.Invoke(this, false);
         }
     }
-
 }

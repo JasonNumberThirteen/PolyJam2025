@@ -650,6 +650,11 @@ MonoBehaviour:
   shotgunKnockback: 8
   shotReload: 2
   shotReloadTimer: 0
+  damage: 1
+  shotgunRange: 10
+  shotgunLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   shotgunShotSoundAudioSource: {fileID: 4812018679040823891}
   shotgunReloadSoundAudioSource: {fileID: 436632336459840221}
 --- !u!114 &2587053198190961927

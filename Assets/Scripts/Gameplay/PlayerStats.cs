@@ -60,7 +60,7 @@ public class PlayerStats : MonoBehaviour
 		PlayerStatsChanged.Invoke(this, this);
 
 		if (isLosingOxygen)
-			LoseOxygen();
+			LoseOxygen(Time.deltaTime * oxygenLossSpeed);
 		else
 			GainOxygen();
 	}
@@ -81,9 +81,9 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 
-	void LoseOxygen()
+	public void LoseOxygen(float oxygen)
 	{
-		HP -= Time.deltaTime * oxygenLossSpeed;
+		HP -= oxygen;
 
 		if(HP < 0)
 		{

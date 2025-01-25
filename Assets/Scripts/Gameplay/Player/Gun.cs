@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -13,6 +11,8 @@ public class Gun : MonoBehaviour
 
     [SerializeField] float shotReload = 2f;
     [SerializeField] float shotReloadTimer = 0f;
+	[SerializeField] private AudioSource shotgunShotSoundAudioSource;
+	[SerializeField] private AudioSource shotgunReloadSoundAudioSource;
     bool hasShot = false;
     bool outOfAmmo = false;
     private void Awake()
@@ -52,6 +52,12 @@ public class Gun : MonoBehaviour
                 Vector2 forceDirection = transform.position - worldPosition;
                 movement.SendImpulse(forceDirection.normalized * shotgunKnockback);
                 hasShot = true;
+
+				if(shotgunShotSoundAudioSource != null)
+				{
+					shotgunShotSoundAudioSource.Play();
+				}
+
                 ReloadStatus.Invoke(this, true);
             }
         }
@@ -69,10 +75,16 @@ public class Gun : MonoBehaviour
         {
             shotReloadTimer += Time.deltaTime;
         }
-        else
+        else if(hasShot)
         {
             hasShot = false;
             shotReloadTimer = 0;
+
+			if(shotgunReloadSoundAudioSource != null)
+			{
+				shotgunReloadSoundAudioSource.Play();
+			}
+
             ReloadStatus.Invoke(this, false);
         }
     }

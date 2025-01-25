@@ -541,6 +541,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1075181849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7347043221440515550, guid: 850d3612a49cc6148a8a9941b179b73d, type: 3}
+  m_PrefabInstance: {fileID: 4576968201270439413}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1075181853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075181849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0328f391a8ac7142b7941b7645ebfe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1148816671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fade Screen Image UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2734203476848113703, guid: 9c926ffedd0e53c418799828f230bba9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4377985895598651636, guid: 9c926ffedd0e53c418799828f230bba9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1331,7 +1352,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7347043221440515550, guid: 850d3612a49cc6148a8a9941b179b73d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1075181853}
   m_SourcePrefab: {fileID: 100100000, guid: 850d3612a49cc6148a8a9941b179b73d, type: 3}
 --- !u!1001 &5461320933989365314
 PrefabInstance:

@@ -1557,7 +1557,6 @@ MonoBehaviour:
   diggableResourcesGOs:
   - {fileID: 4426717093131866382, guid: 80f24929949cab04f80a01893b7a3144, type: 3}
   - {fileID: 8682030447279389723, guid: 03c5987e75f403a40a402a233a4300a7, type: 3}
-  spawnArea: {fileID: 1103112316}
   instanceY: -2.7
   spawnDelay: 10
   maximumNumberOfDiggableResourcesOnScene: 30

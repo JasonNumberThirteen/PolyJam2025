@@ -1423,20 +1423,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072311267192732075, guid: 066f046d98e184b4a9c95b9b401752e8, type: 3}
       propertyPath: m_text
-      value: '"Cosmos Mortis"
+      value: '"Dead Air"
 
 
         MADE BY:
 
-        CrystalClod (3D Modelling,
-        Programming)
+        CrystalClod (3D Modelling, Programming)
 
-        Kalared (Graphics)
+        Kalared
+        (Graphics)
 
         Kali Yuga (Graphics)
 
-        Jason
-        (Programming)'
+        Jason (Programming)'
       objectReference: {fileID: 0}
     - target: {fileID: 4072311267192732075, guid: 066f046d98e184b4a9c95b9b401752e8, type: 3}
       propertyPath: m_lineSpacing

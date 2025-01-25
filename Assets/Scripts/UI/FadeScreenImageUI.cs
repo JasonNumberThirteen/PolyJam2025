@@ -74,7 +74,7 @@ public class FadeScreenImageUI : MonoBehaviour
 		var color = rawImage.color;
 		var progress = timer.GetProgress();
 
-		Debug.Log(progress);
+		//Debug.Log(progress);
 
 		color.a = fadeOut ? 1 - progress : progress;
 

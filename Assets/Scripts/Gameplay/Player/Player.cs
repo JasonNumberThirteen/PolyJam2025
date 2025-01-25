@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 	private InputEvents inputEvents;
 	private DiggableResource diggableResource;
 
+	public bool DiggableResourceIsDefined() => diggableResource != null;
+
 	public void SetDiggableResource(DiggableResource diggableResource)
 	{
 		this.diggableResource = diggableResource;

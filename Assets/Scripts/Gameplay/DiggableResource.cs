@@ -30,6 +30,14 @@ public class DiggableResource : MonoBehaviour
 		}
 	}
 
+	private void OnTriggerStay2D(Collider2D collider)
+	{
+		if(collider.TryGetComponent(out Player player) && !player.DiggableResourceIsDefined())
+		{
+			player.SetDiggableResource(this);
+		}
+	}
+
 	private void OnTriggerExit2D(Collider2D collider)
 	{
 		if(collider.TryGetComponent(out Player player))

@@ -49,7 +49,7 @@ TagManager:
   - name: Diggable Resource
     uniqueID: 344497329
     locked: 0
-  - name: Player
+  - name: Entities
     uniqueID: 472932543
     locked: 0
   - name: Foreground

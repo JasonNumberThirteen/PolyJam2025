@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 3912293109183372212}
   - component: {fileID: 6826023153890719908}
   - component: {fileID: 6718776264651107543}
+  - component: {fileID: 2587053198190961927}
   - component: {fileID: 310996942138812581}
   - component: {fileID: 6540205377674760756}
   - component: {fileID: 3829315981976063769}
@@ -82,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  jumpPower: 1.5
+  jumpPower: 3
   fallPower: 1
   groundCheck: {fileID: 326627920426083358}
   groundCheckSize: {x: 1, y: 0.2}
@@ -114,7 +115,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   jumpTime: 0.5
-  shotgunKnockback: 10
+  speedLimit: 20
 --- !u!114 &6718776264651107543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb29713fd687a1a45b682ebbdd774c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotgunKnockback: 8
+  shotReload: 2
+  shotReloadTimer: 0
+--- !u!114 &2587053198190961927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742571945554062063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbdf4fbe73cca1542b873a21e8e84d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 100
+  initialHP: 100
+  initialShotgunShellAmount: 5
+  shotgunShellAmount: 5
+  oxygenLossSpeed: 1
+  oxygenGainSpeed: 5
 --- !u!212 &310996942138812581
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -237,7 +259,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.2
   m_AngularDrag: 0.05
   m_GravityScale: 0.1
   m_Material: {fileID: 0}

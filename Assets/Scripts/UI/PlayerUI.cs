@@ -1,33 +1,36 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI shotgunText;
-
-    private Color initialShotgunColor;
+    public UnityEvent<bool> PlayerReloadStatusChangedEvent;
 	
+	private AmmoPanelUI ammoPanelUI;
+
+	private void Awake()
+	{
+		ammoPanelUI = FindAnyObjectByType<AmmoPanelUI>();
+	}
+
     private void Start()
     {
         PlayerStats.PlayerStatsChanged += UpdateUI;
-        Gun.ReloadStatus += Reload;
-        initialShotgunColor = shotgunText.color;
+        Gun.ReloadStatus += ChangeReloadStatus;
     }
 
-    private void Reload(object sender, bool e)
+    private void ChangeReloadStatus(object sender, bool startedReloading)
     {
-        if (e)
-        {
-            shotgunText.color = Color.red;
-        }
-        else
-        {
-            shotgunText.color = initialShotgunColor;
-        }
+        if(ammoPanelUI != null)
+		{
+			ammoPanelUI.SetAmmoTextColor(startedReloading);
+		}
     }
 
     private void UpdateUI(object sender, PlayerStats e)
     {
-        shotgunText.text = e.shotgunShellAmount.ToString() + "/" + e.initialShotgunShellAmount.ToString();
+        if(ammoPanelUI != null)
+		{
+			ammoPanelUI.SetAmmoValue(e.shotgunShellAmount, e.initialShotgunShellAmount);
+		}
     }
 }

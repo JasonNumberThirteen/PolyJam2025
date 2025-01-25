@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2408857747647085586}
   - component: {fileID: 1191495930729880370}
   - component: {fileID: 4072311267192732075}
+  - component: {fileID: 5492493518324022786}
   m_Layer: 5
   m_Name: TextUI
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5492493518324022786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860164344488855512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b9ba9a08a4c534799ce0e46eee7315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

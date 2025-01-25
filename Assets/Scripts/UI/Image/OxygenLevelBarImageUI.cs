@@ -40,7 +40,7 @@ public class OxygenLevelBarImageUI : MonoBehaviour
 
 	private void OnPlayerStatsChanged(object sender, PlayerStats playerStats)
 	{
-		if(playerStats.initialHP > 0)
+		if(image != null && playerStats.initialHP > 0)
 		{
 			image.fillAmount = playerStats.HP / playerStats.initialHP;
 		}

@@ -55,5 +55,4 @@ public class DashingEnemy : Enemy
 	}
 
 	private Vector2 GetCurrentPosition() => IsCloseToPosition(target.position, distanceToDash) ? dashPoint : target.position;
-	private bool IsCloseToPosition(Vector2 position, float distance) => Vector2.Distance(transform.position, position) <= distance;
 }

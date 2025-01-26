@@ -375,6 +375,10 @@ PrefabInstance:
       propertyPath: hitSpark
       value: 
       objectReference: {fileID: 4287547066061933209, guid: 79330159110cf854aa16fad0c4715a12, type: 3}
+    - target: {fileID: 6489180415049999257, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: shotReload
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

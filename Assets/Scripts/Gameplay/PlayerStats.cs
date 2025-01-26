@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
 	public static EventHandler<PlayerStats> PlayerStatsChanged;
 	public static EventHandler<bool> AttachedStatus;
+	public static EventHandler<Vector3> GotHit;
 
 	public UnityEvent playerFiredBulletEvent;
 	public UnityEvent<int> playerReceivedBulletsEvent;
@@ -142,6 +143,12 @@ public class PlayerStats : MonoBehaviour
 
 			playerReachedLowOxygenLevelEvent?.Invoke();
 		}
+	}
+
+	public void GetDamaged(float oxygen, Vector3 hitPoint)
+	{
+		GotHit.Invoke(oxygen, hitPoint);
+		LoseOxygen(oxygen);
 	}
 
 	void Die()

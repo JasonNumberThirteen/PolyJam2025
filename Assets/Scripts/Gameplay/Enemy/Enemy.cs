@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour
 	{
 		if(collider.TryGetComponent(out PlayerStats playerStats))
 		{
-			playerStats.LoseOxygen(damage);
+			playerStats.GetDamaged(damage, transform.position);
 		}
 	}
 }

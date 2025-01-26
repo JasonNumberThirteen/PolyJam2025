@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Timer))]
 public class EnemySpawnManager : MonoBehaviour
 {
+	
 	private Timer timer;
 	
 	[SerializeField] private List<EnemyWave> enemyWaves = new();
@@ -95,6 +96,20 @@ public class EnemySpawnManager : MonoBehaviour
 			}
 		}
 	}
+
+	private IEnumerator CheckIfNoMoreEnemies()
+	{
+        while (true)
+        {
+            yield return new WaitForSeconds(3);
+
+            if (FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length == 0)
+            {
+                FadeIn();
+                StopCoroutine(CheckIfWonGame());
+            }
+        }
+    }
 
 	private void FadeIn()
 	{

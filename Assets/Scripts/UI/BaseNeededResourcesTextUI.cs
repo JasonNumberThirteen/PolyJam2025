@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BaseNeededResourcesTextUI : TextUI
 {
 	private Base @base;
@@ -66,8 +68,8 @@ public class BaseNeededResourcesTextUI : TextUI
 
 	private void UpdateNeededResources()
 	{
-		rockPieces = @base.GetLeftRockPieces();
-		crystalPieces = @base.GetLeftCrystalPieces();
+		rockPieces = Mathf.Max(@base.GetLeftRockPieces(), 0);
+		crystalPieces = Mathf.Max(@base.GetLeftCrystalPieces(), 0);
 
 		UpdateText();
 	}

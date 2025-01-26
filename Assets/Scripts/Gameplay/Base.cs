@@ -13,8 +13,8 @@ public class Base : MonoBehaviour
 	private int crystalResourcePieces;
 
 	public BaseLevel GetCurrentBaseLevel() => baseLevels[currentLevelIndex];
-	public int GetLeftRockPieces() => GetCurrentBaseLevel().GetNumberOfRequiredRockResourcePieces() - rockResourcePieces;
-	public int GetLeftCrystalPieces() => GetCurrentBaseLevel().GetNumberOfRequiredCrystalResourcePieces() - crystalResourcePieces;
+	public int GetLeftRockPieces() => currentLevelIndex < baseLevels.Count ? GetCurrentBaseLevel().GetNumberOfRequiredRockResourcePieces() - rockResourcePieces : 0;
+	public int GetLeftCrystalPieces() => currentLevelIndex < baseLevels.Count ? GetCurrentBaseLevel().GetNumberOfRequiredCrystalResourcePieces() - crystalResourcePieces : 0;
 
 	public void DeliverResources(PlayerInventory playerInventory)
 	{

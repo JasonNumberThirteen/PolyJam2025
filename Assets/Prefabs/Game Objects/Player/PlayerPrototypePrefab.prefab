@@ -562,8 +562,8 @@ GameObject:
   - component: {fileID: 3976516022349728101}
   - component: {fileID: 3078220958660530916}
   m_Layer: 0
-  m_Name: PlayerPrefab
-  m_TagString: Untagged
+  m_Name: PlayerPrototypePrefab
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -657,6 +657,8 @@ MonoBehaviour:
     m_Bits: 128
   shotgunShotSoundAudioSource: {fileID: 4812018679040823891}
   shotgunReloadSoundAudioSource: {fileID: 436632336459840221}
+  shotgunShotEffectGO: {fileID: 0}
+  shotgunShotAnimator: {fileID: 0}
 --- !u!114 &2587053198190961927
 MonoBehaviour:
   m_ObjectHideFlags: 0

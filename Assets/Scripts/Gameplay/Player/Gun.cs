@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
 	[SerializeField] private LayerMask shotgunLayerMask;
 	[SerializeField] private AudioSource shotgunShotSoundAudioSource;
 	[SerializeField] private AudioSource shotgunReloadSoundAudioSource;
+	[SerializeField] private Animator shotgunShotAnimator;
+	[SerializeField] private Animator shotgunReloadingHandAnimator;
     bool hasShot = false;
     bool outOfAmmo = false;
 
@@ -71,10 +73,19 @@ public class Gun : MonoBehaviour
 					shotgunShotSoundAudioSource.Play();
 				}
 
+				if(shotgunShotAnimator != null)
+				{
+					shotgunShotAnimator.SetBool("Triggered", true);
+				}
+
+				if(shotgunReloadingHandAnimator != null)
+				{
+					shotgunReloadingHandAnimator.SetBool("Triggered", false);
+				}
+
                 ReloadStatus.Invoke(this, true);
             }
         }
-        
     }
 
     private void Update()
@@ -96,6 +107,16 @@ public class Gun : MonoBehaviour
 			if(shotgunReloadSoundAudioSource != null)
 			{
 				shotgunReloadSoundAudioSource.Play();
+			}
+
+			if(shotgunShotAnimator != null)
+			{
+				shotgunShotAnimator.SetBool("Triggered", false);
+			}
+
+			if(shotgunReloadingHandAnimator != null)
+			{
+				shotgunReloadingHandAnimator.SetBool("Triggered", true);
 			}
 
             ReloadStatus.Invoke(this, false);

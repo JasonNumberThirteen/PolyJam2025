@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     float currentJumpTime = 0;
     [SerializeField] float jumpTime = 1f;
     [SerializeField] float speedLimit = 20;
-    
+    [SerializeField] private Animator legsAnimator;
 
     Vector2 moveDirection;
 
@@ -75,6 +75,11 @@ public class Movement : MonoBehaviour
 
                 rb.AddForce(Vector2.up * curvedJumpPower);
                 currentJumpTime += Time.deltaTime;
+
+				if(legsAnimator != null)
+				{
+					legsAnimator.SetBool("IsJumping", true);
+				}
             }
             else
             {
@@ -91,6 +96,11 @@ public class Movement : MonoBehaviour
             else
             {
                 currentJumpTime = 0;
+
+				if(legsAnimator != null)
+				{
+					legsAnimator.SetBool("IsJumping", false);
+				}
             }
         }
     }
@@ -114,10 +124,20 @@ public class Movement : MonoBehaviour
         if(Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundCheckLayerMask))
         {
             isGrounded = true;
+
+			if(legsAnimator != null)
+			{
+				legsAnimator.SetBool("IsJumping", false);
+			}
         }
         else
         {
             isGrounded = false;
+
+			if(legsAnimator != null)
+			{
+				legsAnimator.SetBool("IsJumping", true);
+			}
         }
 
         rb.AddForce(moveDirection * moveSpeed);

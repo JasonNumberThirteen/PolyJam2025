@@ -2,6 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class ShootingEnemy : Enemy
 {
 	[SerializeField, Min(0f)] private float distanceToStopMoving = 5f;
@@ -11,6 +12,7 @@ public class ShootingEnemy : Enemy
 
 	private Timer timer;
 	private Animator animator;
+	private AudioSource audioSource;
 	private SpriteRenderer spriteRenderer;
 
 	public void ResetAnimatorParameter()
@@ -24,6 +26,7 @@ public class ShootingEnemy : Enemy
 
 		timer = GetComponent<Timer>();
 		animator = GetComponent<Animator>();
+		audioSource = GetComponent<AudioSource>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		RegisterToListeners(true);
@@ -80,6 +83,7 @@ public class ShootingEnemy : Enemy
 		if(flyingProjectilePrefab != null)
 		{
 			Instantiate(flyingProjectilePrefab, transform.position, Quaternion.identity).Setup(damage, projectileSpeed, (target.position - transform.position).normalized);
+			audioSource.Play();
 		}
 	}
 

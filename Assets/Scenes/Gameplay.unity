@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 43536082}
   - component: {fileID: 43536081}
   - component: {fileID: 43536083}
+  - component: {fileID: 43536084}
   m_Layer: 0
   m_Name: OxygenSource
   m_TagString: AttachPoint
@@ -255,6 +256,104 @@ MonoBehaviour:
     playerOxygenLevel: 150
     numberOfShotgunBullets: 8
     shotgunReloadTime: 1.1
+  baseResourcesDeliverySound: {fileID: 8300000, guid: c5c2c2edbaa70ea4c8765e20ace03566, type: 3}
+  baseLevelUpSound: {fileID: 8300000, guid: 672506074208fa645a21329e685f8b03, type: 3}
+--- !u!82 &43536084
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43536076}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &105520520
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +468,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8845aede10b248a429efc46646015383, type: 3}
+    - target: {fileID: 3466852651989124651, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1872557256}
     - target: {fileID: 3564759102656976122, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -417,20 +520,29 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4751363244291796685, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: m_Name
+      value: Low Oxygen Alarm Audio Source
+      objectReference: {fileID: 0}
     - target: {fileID: 5224851341637019041, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6489180415049999257, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
-      propertyPath: hitSpark
-      value: 
-      objectReference: {fileID: 4287547066061933209, guid: 79330159110cf854aa16fad0c4715a12, type: 3}
-    - target: {fileID: 6489180415049999257, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
       propertyPath: shotReload
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7585651098100561792, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585651098100561792, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1672008134877924840, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
@@ -3832,6 +3944,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb4cbdbb7863d4f4283efe1118a1a1de, type: 3}
+--- !u!82 &1872557256 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 311882711198496882, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+  m_PrefabInstance: {fileID: 152010263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1915153201
 GameObject:
   m_ObjectHideFlags: 0

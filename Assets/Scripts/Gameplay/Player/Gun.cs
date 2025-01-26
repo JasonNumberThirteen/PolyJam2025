@@ -111,7 +111,6 @@ public class Gun : MonoBehaviour
                 hasShot = true;
                 PlayerShotBullet?.Invoke(this, EventArgs.Empty);
 
-                //var shotDirection = worldPosition - transform.position;
                 var shotDirection = worldPosition - transform.position;
                 var hit2D = Physics2D.Raycast(transform.position, shotDirection, shotgunRange, shotgunLayerMask);
 

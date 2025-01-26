@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
 	public UnityEvent<DiggableResource> diggableResourceUpdatedEvent;
 
+	[SerializeField] private AudioSource diggingResourceAudioSource;
+
 	private PlayerInventory playerInventory;
 	private InputEvents inputEvents;
 	private DiggableResource diggableResource;
@@ -60,5 +62,10 @@ public class Player : MonoBehaviour
 
 		playerInventory.AddDiggableResourcePiecesByType(diggableResource.GetDiggableResourceType(), diggableResource.GetNumberOfPieces());
 		diggableResource.Dig();
+
+		if(diggingResourceAudioSource != null)
+		{
+			diggingResourceAudioSource.Play();
+		}
     }
 }

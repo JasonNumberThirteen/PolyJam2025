@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerSoundAdjuster : MonoBehaviour
 {
 	[SerializeField] private AudioSource breathingSoundAudioSource;
-	[SerializeField] private AudioSource heartbeatSoundAudioSource;
+	[SerializeField] private AudioSource lowOxygenLevelSoundAudioSource;
 
 	private PlayerStats playerStats;
 
@@ -45,18 +45,27 @@ public class PlayerSoundAdjuster : MonoBehaviour
 	private void OnPlayerReachedLowOxygenLevel()
 	{
 		SetVolumeToAudioSourceIfPossible(breathingSoundAudioSource, 0.25f);
-		SetVolumeToAudioSourceIfPossible(heartbeatSoundAudioSource, 1f);
+		SetVolumeToAudioSourceIfPossible(lowOxygenLevelSoundAudioSource, 0.25f);
+
+		lowOxygenLevelSoundAudioSource.loop = true;
+
+		lowOxygenLevelSoundAudioSource.Play();
 	}
 
 	private void OnPlayerReachedStableOxygenLevel()
 	{
 		SetVolumeToAudioSourceIfPossible(breathingSoundAudioSource, 1f);
-		SetVolumeToAudioSourceIfPossible(heartbeatSoundAudioSource, 0f);
+		SetVolumeToAudioSourceIfPossible(lowOxygenLevelSoundAudioSource, 0f);
+
+		lowOxygenLevelSoundAudioSource.loop = false;
+		
+		lowOxygenLevelSoundAudioSource.Stop();
 	}
 
 	private void OnPlayerDiedEvent()
 	{
 		SetVolumeToAudioSourceIfPossible(breathingSoundAudioSource, 0f);
+		SetVolumeToAudioSourceIfPossible(lowOxygenLevelSoundAudioSource, 0f);
 	}
 
 	private void SetVolumeToAudioSourceIfPossible(AudioSource audioSource, float volume)

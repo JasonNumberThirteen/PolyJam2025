@@ -635,6 +635,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   jumpTime: 0.5
   speedLimit: 20
+  legsAnimator: {fileID: 0}
 --- !u!114 &6718776264651107543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,8 +658,13 @@ MonoBehaviour:
     m_Bits: 128
   shotgunShotSoundAudioSource: {fileID: 4812018679040823891}
   shotgunReloadSoundAudioSource: {fileID: 436632336459840221}
-  shotgunShotEffectGO: {fileID: 0}
-  shotgunShotAnimator: {fileID: 0}
+  shotgunAnimator: {fileID: 0}
+  shotgunReloadingHandAnimator: {fileID: 0}
+  visuals: {fileID: 0}
+  rotationAdjuster: {fileID: 0}
+  reloadHand: {fileID: 0}
+  hitSpark: {fileID: 0}
+  shotRayOrigin: {fileID: 0}
 --- !u!114 &2587053198190961927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,6 +677,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdf4fbe73cca1542b873a21e8e84d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerFiredBulletEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  playerReceivedBulletsEvent:
+    m_PersistentCalls:
+      m_Calls: []
   playerReachedLowOxygenLevelEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -841,6 +853,7 @@ MonoBehaviour:
   diggableResourceUpdatedEvent:
     m_PersistentCalls:
       m_Calls: []
+  audioSource: {fileID: 0}
 --- !u!114 &3078220958660530916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,7 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breathingSoundAudioSource: {fileID: 4394017631296178059}
-  heartbeatSoundAudioSource: {fileID: 7959678193834997966}
+  lowOxygenLevelSoundAudioSource: {fileID: 0}
 --- !u!1 &6204460031551854185
 GameObject:
   m_ObjectHideFlags: 0

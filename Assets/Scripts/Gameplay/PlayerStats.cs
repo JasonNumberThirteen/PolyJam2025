@@ -14,6 +14,8 @@ public class PlayerStats : MonoBehaviour
 	public UnityEvent playerReachedStableOxygenLevelEvent;
 	public UnityEvent playerDiedEvent;
 
+	[SerializeField] private AudioSource gainingHitAudioSource;
+
 	public float HP = 100f;
 	public float initialHP = 100f;
 	public int initialShotgunShellAmount = 4;
@@ -154,6 +156,11 @@ public class PlayerStats : MonoBehaviour
         StartCoroutine(InvincibleTimer());
         GotHit.Invoke(oxygen, hitPoint);
         LoseOxygen(oxygen);
+
+		if(gainingHitAudioSource != null)
+		{
+			gainingHitAudioSource.Play();
+		}
     }
 
     IEnumerator InvincibleTimer()

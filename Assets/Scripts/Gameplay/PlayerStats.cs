@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
 	public static EventHandler<PlayerStats> PlayerStatsChanged;
 	public static EventHandler<bool> AttachedStatus;
 
+	public UnityEvent playerFiredBulletEvent;
+	public UnityEvent<int> playerReceivedBulletsEvent;
 	public UnityEvent playerReachedLowOxygenLevelEvent;
 	public UnityEvent playerReachedStableOxygenLevelEvent;
 	public UnityEvent playerDiedEvent;
@@ -38,6 +40,8 @@ public class PlayerStats : MonoBehaviour
 		if(e && (oxygenSource == null || !oxygenSource.PlayerIsAttached()))
 		{
 			shotgunShellAmount--;
+
+			playerFiredBulletEvent?.Invoke();
 		}
 
 		if(shotgunShellAmount <= 0)
@@ -52,6 +56,7 @@ public class PlayerStats : MonoBehaviour
 		isLosingOxygen = !e;
 
 		shotgunShellAmount = initialShotgunShellAmount;
+		playerReceivedBulletsEvent?.Invoke(shotgunShellAmount);
 		Gun.OutOfAmmoStatus.Invoke(this, false);
 	}
 

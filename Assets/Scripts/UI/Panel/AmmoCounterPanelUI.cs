@@ -2,30 +2,62 @@ using UnityEngine;
 
 public class AmmoCounterPanelUI : CounterPanelUI
 {
-	[SerializeField] private Color ammoTextReloadingStatusColor = Color.red;
+	[SerializeField] private GameObject ammoIconUI;
 
-	public void SetAmmoTextColor(bool startedReloading)
+	private PlayerStats playerStats;
+	
+	protected override void Awake()
 	{
-		if(textUI == null)
+		playerStats = FindAnyObjectByType<PlayerStats>();
+
+		RegisterToListeners(true);
+	}
+
+	private void OnDestroy()
+	{
+		RegisterToListeners(false);
+	}
+
+	private void RegisterToListeners(bool register)
+	{
+		if(register)
 		{
-			return;
-		}
-		
-		if(startedReloading)
-		{
-			textUI.SetColor(ammoTextReloadingStatusColor);
+			if(playerStats != null)
+			{
+				playerStats.playerFiredBulletEvent.AddListener(OnPlayerFiredBullet);
+				playerStats.playerReceivedBulletsEvent.AddListener(OnPlayerReceivedBullets);
+			}
 		}
 		else
 		{
-			textUI.RestoreInitialColor();
+			if(playerStats != null)
+			{
+				playerStats.playerFiredBulletEvent.RemoveListener(OnPlayerFiredBullet);
+				playerStats.playerReceivedBulletsEvent.RemoveListener(OnPlayerReceivedBullets);
+			}
 		}
 	}
 
-	public void SetAmmoValue(int currentAmmo, int maxAmmo)
+	private void OnPlayerFiredBullet()
 	{
-		if(textUI != null)
+		var ammoIcons = GetComponentsInChildren<AmmoIconUI>();
+
+		if(ammoIcons != null && ammoIcons.Length > 0)
 		{
-			textUI.SetText($"{currentAmmo}/{maxAmmo}");
+			ammoIcons[0].SetReductionState();
+		}
+	}
+
+	private void OnPlayerReceivedBullets(int numberOfBullets)
+	{
+		var ammoIcons = GetComponentsInChildren<AmmoIconUI>();
+		
+		if(ammoIcons != null && ammoIcons.Length < numberOfBullets)
+		{
+			for (int i = 0; i < numberOfBullets - ammoIcons.Length; ++i)
+			{
+				Instantiate(ammoIconUI, gameObject.transform);
+			}
 		}
 	}
 }

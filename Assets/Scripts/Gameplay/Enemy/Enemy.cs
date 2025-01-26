@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Enemy : MonoBehaviour
 {
@@ -12,7 +12,11 @@ public abstract class Enemy : MonoBehaviour
 	protected int currentHealth;
 	protected Transform target;
 
-	public void TakeDamage(int damage)
+
+    private SpriteRenderer[] renderers;
+    private Material[] materials;
+    [SerializeField] private float flashTime = 0.2f;
+    public void TakeDamage(int damage)
 	{
 		currentHealth -= damage;
 
@@ -21,9 +25,40 @@ public abstract class Enemy : MonoBehaviour
 			Instantiate(deathParticle,transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
+		else
+		{
+            StartCoroutine(DamageFlasher());
+        }
 	}
 
-	protected abstract void FixedUpdate();
+    private IEnumerator DamageFlasher()
+    {
+        float currentFlashAmount = 0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < flashTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            currentFlashAmount = Mathf.Lerp(1f, 0f, elapsedTime / flashTime);
+
+            for (int i = 0; i < materials.Length; i++)
+            {
+                materials[i].SetFloat("_FlashAmount", currentFlashAmount);
+            }
+
+            yield return null;
+        }
+
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            materials[i].SetFloat("_FlashAmount", 0);
+        }
+
+    }
+
+    protected abstract void FixedUpdate();
 
 	protected bool IsCloseToPosition(Vector2 position, float distance) => Vector2.Distance(transform.position, position) <= distance;
 
@@ -32,7 +67,16 @@ public abstract class Enemy : MonoBehaviour
 		rb2D = GetComponent<Rigidbody2D>();
 		currentHealth = initialHealth;
 
-		FindTarget();
+        renderers = GetComponentsInChildren<SpriteRenderer>();
+        materials = new Material[renderers.Length];
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            materials[i] = renderers[i].material;
+        }
+
+
+        FindTarget();
 	}
 
 	private void FindTarget()

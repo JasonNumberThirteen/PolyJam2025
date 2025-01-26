@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-
+using System.Collections;
 public class PlayerStats : MonoBehaviour
 {
 	public static EventHandler<PlayerStats> PlayerStatsChanged;
@@ -29,6 +29,7 @@ public class PlayerStats : MonoBehaviour
 	private PlayerOxygenLevelType playerOxygenLevelType = PlayerOxygenLevelType.Stable;
 	private Base @base;
 
+	bool isImmuneToAttacks;
 	private void Awake()
 	{
 		AttachedStatus += ChangeAttachedStatus;
@@ -129,29 +130,41 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 
-	public void LoseOxygen(float oxygen)
-	{
-		HP -= oxygen;
+    public void LoseOxygen(float oxygen)
+    {
+        HP -= oxygen;
 
-		if(HP < 0)
-		{
-			Die(); 
-		}
-		else if(GetHPPercent() < lowOxygenLevelPercentThreshold && playerOxygenLevelType != PlayerOxygenLevelType.Low)
-		{
-			playerOxygenLevelType = PlayerOxygenLevelType.Low;
+        if (HP < 0)
+        {
+            Die();
+        }
+        else if (GetHPPercent() < lowOxygenLevelPercentThreshold && playerOxygenLevelType != PlayerOxygenLevelType.Low)
+        {
+            playerOxygenLevelType = PlayerOxygenLevelType.Low;
 
-			playerReachedLowOxygenLevelEvent?.Invoke();
-		}
-	}
+            playerReachedLowOxygenLevelEvent?.Invoke();
+        }
+    }
 
-	public void GetDamaged(float oxygen, Vector3 hitPoint)
-	{
-		GotHit.Invoke(oxygen, hitPoint);
-		LoseOxygen(oxygen);
-	}
+    public void GetDamaged(float oxygen, Vector3 hitPoint)
+    {
+        if (isImmuneToAttacks)
+            return;
 
-	void Die()
+        StartCoroutine(InvincibleTimer());
+        GotHit.Invoke(oxygen, hitPoint);
+        LoseOxygen(oxygen);
+    }
+
+    IEnumerator InvincibleTimer()
+    {
+        isImmuneToAttacks = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        isImmuneToAttacks = false;
+    }
+    void Die()
 	{
 		if(wasDied)
 		{

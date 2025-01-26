@@ -25,6 +25,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private PlayerRotationAdjuster rotationAdjuster;
     [SerializeField] private Transform reloadHand;
     [SerializeField] private GameObject hitSpark;
+
+    [SerializeField] private Transform shotRayOrigin;
     bool hasShot = false;
     bool outOfAmmo = false;
     bool isReloading = false;
@@ -109,8 +111,9 @@ public class Gun : MonoBehaviour
                 hasShot = true;
                 PlayerShotBullet?.Invoke(this, EventArgs.Empty);
 
-				var shotDirection = worldPosition - transform.position;
-				var hit2D = Physics2D.Raycast(ray.origin, ray.direction, shotgunRange, shotgunLayerMask);
+                //var shotDirection = worldPosition - transform.position;
+                var shotDirection = worldPosition - transform.position;
+                var hit2D = Physics2D.Raycast(transform.position, shotDirection, shotgunRange, shotgunLayerMask);
 
                 Transform spark;
 

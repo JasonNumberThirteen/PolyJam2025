@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class OxygenSource : MonoBehaviour, IAttachable
 {
-    [SerializeField] private LineRenderer lineRenderer;
+    public UnityEvent playerAttachedToOxygenEvent;
+	
+	[SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Transform ropeStart;
     [SerializeField] private Transform ropeEnd;
 
@@ -35,8 +38,8 @@ public class OxygenSource : MonoBehaviour, IAttachable
         if (!collision.CompareTag("Player"))
             return;
 
-            player = collision.gameObject;
-            Attach();
+		player = collision.gameObject;
+		Attach();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -72,6 +75,7 @@ public class OxygenSource : MonoBehaviour, IAttachable
         ropeEnd = player.GetComponent<Transform>();
         player.GetComponent<Movement>().LimitMovement(true, transform.position, radius);
         PlayerStats.AttachedStatus.Invoke(this, true);
+		playerAttachedToOxygenEvent?.Invoke();
     }
 
     private void OnDrawGizmos()

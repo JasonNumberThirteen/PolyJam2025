@@ -28,11 +28,44 @@ public class Gun : MonoBehaviour
     bool hasShot = false;
     bool outOfAmmo = false;
     bool isReloading = false;
+	private Base @base;
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
-    }
+		@base = FindAnyObjectByType<Base>();
+
+		RegisterToListeners(true);
+	}
+
+	private void OnDestroy()
+	{
+		RegisterToListeners(false);
+	}
+
+	private void RegisterToListeners(bool register)
+	{
+		if(register)
+		{
+			if(@base != null)
+			{
+				@base.baseLevelledUpEvent.AddListener(OnBaseLevelledUp);
+			}
+		}
+		else
+		{
+			if(@base != null)
+			{
+				@base.baseLevelledUpEvent.RemoveListener(OnBaseLevelledUp);
+			}
+		}
+	}
+
+	private void OnBaseLevelledUp(BaseLevel baseLevel)
+	{
+		shotReload = baseLevel.GetShotgunReloadTime();
+	}
+
     private void Start()
     {
         InputEvents.ShootAction += Shoot;

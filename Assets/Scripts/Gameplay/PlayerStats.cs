@@ -26,6 +26,7 @@ public class PlayerStats : MonoBehaviour
 	private bool wasDied;
 	private OxygenSource oxygenSource;
 	private PlayerOxygenLevelType playerOxygenLevelType = PlayerOxygenLevelType.Stable;
+	private Base @base;
 
 	private void Awake()
 	{
@@ -33,6 +34,42 @@ public class PlayerStats : MonoBehaviour
 		Gun.ReloadStatus += GunReload;
 
 		oxygenSource = FindAnyObjectByType<OxygenSource>();
+		@base = FindAnyObjectByType<Base>();
+
+		RegisterToListeners(true);
+	}
+
+	private void OnDestroy()
+	{
+		RegisterToListeners(false);
+	}
+
+	private void RegisterToListeners(bool register)
+	{
+		if(register)
+		{
+			if(@base != null)
+			{
+				@base.baseLevelledUpEvent.AddListener(OnBaseLevelledUp);
+			}
+		}
+		else
+		{
+			if(@base != null)
+			{
+				@base.baseLevelledUpEvent.RemoveListener(OnBaseLevelledUp);
+			}
+		}
+	}
+
+	private void OnBaseLevelledUp(BaseLevel baseLevel)
+	{
+		HP = initialHP = baseLevel.GetPlayerOxygenLevel();
+		initialShotgunShellAmount = baseLevel.GetNumberOfShotgunBullets();
+		shotgunShellAmount = initialShotgunShellAmount;
+
+		playerReceivedBulletsEvent?.Invoke(shotgunShellAmount);
+		Gun.OutOfAmmoStatus.Invoke(this, false);
 	}
 
     private void Start()

@@ -76,6 +76,6 @@ public class BaseNeededResourcesTextUI : TextUI
 
 	private void UpdateText()
 	{
-		SetText($"Rock: {rockPieces}\nCrystal: {crystalPieces}");
+		SetText($"Minerals Required to Upgrade \nRock: {rockPieces}\nCrystal: {crystalPieces}");
 	}
 }

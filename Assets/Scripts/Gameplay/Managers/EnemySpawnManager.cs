@@ -2,11 +2,14 @@ using Random = UnityEngine.Random;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Timer))]
 public class EnemySpawnManager : MonoBehaviour
 {
-	
+	public static EventHandler EnemyDied;
+	int amountOfEnemies = 4;
+
 	private Timer timer;
 	
 	[SerializeField] private List<EnemyWave> enemyWaves = new();
@@ -22,10 +25,24 @@ public class EnemySpawnManager : MonoBehaviour
 		waveCounterTextUI = FindAnyObjectByType<WaveCounterTextUI>();
 		fadeScreenImageUI = FindAnyObjectByType<FadeScreenImageUI>();
 
+		EnemyDied += OnEnemyDied;
+
+		StartWave();
+
 		RegisterToListeners(true);
 	}
 
-	private void OnDestroy()
+    private void OnEnemyDied(object sender, EventArgs e)
+    {
+		amountOfEnemies--;
+
+		if(amountOfEnemies <= 0)
+		{
+			StartWave();
+		}
+    }
+
+    private void OnDestroy()
 	{
 		RegisterToListeners(false);
 	}
@@ -34,11 +51,11 @@ public class EnemySpawnManager : MonoBehaviour
 	{
 		if(register)
 		{
-			timer.timerFinishedEvent.AddListener(OnTimerFinished);
+			//timer.timerFinishedEvent.AddListener(OnTimerFinished);
 		}
 		else
 		{
-			timer.timerFinishedEvent.RemoveListener(OnTimerFinished);
+			//timer.timerFinishedEvent.RemoveListener(OnTimerFinished);
 		}
 	}
 
@@ -51,7 +68,9 @@ public class EnemySpawnManager : MonoBehaviour
 	{
 		if(currentWaveIndex < enemyWaves.Count)
 		{
-			var currentWave = enemyWaves[currentWaveIndex];
+			EnemyWave currentWave = enemyWaves[currentWaveIndex];
+
+			amountOfEnemies = currentWave.GetAmountOfEnemies();
 
 			if(waveCounterTextUI != null)
 			{
@@ -89,7 +108,7 @@ public class EnemySpawnManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(3);
 
-			if(FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length == 0)
+			if(currentWaveIndex < enemyWaves.Count && FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length == 0)
 			{
 				FadeIn();
 				StopCoroutine(CheckIfWonGame());

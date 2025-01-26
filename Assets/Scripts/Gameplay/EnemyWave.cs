@@ -10,4 +10,6 @@ public class EnemyWave
 
 	public List<GameObject> GetEnemiesGOs() => enemiesGOs;
 	public float GetSpawnDelay() => spawnDelay;
+
+	public int GetAmountOfEnemies() => enemiesGOs.Count;
 }

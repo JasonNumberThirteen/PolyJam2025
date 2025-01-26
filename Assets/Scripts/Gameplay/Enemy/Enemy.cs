@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Enemy : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public abstract class Enemy : MonoBehaviour
 		if(currentHealth <= 0)
 		{
 			Instantiate(deathParticle,transform.position, Quaternion.identity);
+			EnemySpawnManager.EnemyDied.Invoke(this,EventArgs.Empty);
 			Destroy(gameObject);
 		}
 		else

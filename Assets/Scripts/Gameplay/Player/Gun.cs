@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
 	[SerializeField] private LayerMask shotgunLayerMask;
 	[SerializeField] private AudioSource shotgunShotSoundAudioSource;
 	[SerializeField] private AudioSource shotgunReloadSoundAudioSource;
-	[SerializeField] private Animator shotgunShotAnimator;
+	[SerializeField] private Animator shotgunAnimator;
 	[SerializeField] private Animator shotgunReloadingHandAnimator;
     [SerializeField] private Transform visuals;
     [SerializeField] private PlayerRotationAdjuster rotationAdjuster;
@@ -86,9 +86,10 @@ public class Gun : MonoBehaviour
 					shotgunShotSoundAudioSource.Play();
 				}
 
-				if(shotgunShotAnimator != null)
+				if(shotgunAnimator != null)
 				{
-					shotgunShotAnimator.SetBool("Triggered", true);
+                    //shotgunAnimator.SetBool("Triggered", true);
+                    shotgunAnimator.SetTrigger("Triggered");
 				}
 
 				if(shotgunReloadingHandAnimator != null)
@@ -140,10 +141,10 @@ public class Gun : MonoBehaviour
 				shotgunReloadSoundAudioSource.Play();
 			}
 
-			if(shotgunShotAnimator != null)
+			/*if(shotgunAnimator != null)
 			{
-				shotgunShotAnimator.SetBool("Triggered", false);
-			}
+				shotgunAnimator.SetBool("Triggered", false);
+			}*/
 
 			if(shotgunReloadingHandAnimator != null)
 			{

@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 82004f61bd37f23479e59b81bf953142, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,15 +130,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 3a636891407d5844eb9c2f41bfe6d56a, type: 2}
     - target: {fileID: 4954924431645223039, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4954924431645223039, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4954924431645223039, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4954924431645223039, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
       propertyPath: m_LocalPosition.x

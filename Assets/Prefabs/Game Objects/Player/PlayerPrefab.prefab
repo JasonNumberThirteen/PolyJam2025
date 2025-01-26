@@ -735,6 +735,10 @@ PrefabInstance:
       value: PlayerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6718776264651107543, guid: 8e9ad960ac9dc444e8de8357099cc569, type: 3}
+      propertyPath: shotgunClipPrefab
+      value: 
+      objectReference: {fileID: 7702403557877755357, guid: 9bd3229e44b342845ae8f03f19f983a2, type: 3}
+    - target: {fileID: 6718776264651107543, guid: 8e9ad960ac9dc444e8de8357099cc569, type: 3}
       propertyPath: shotgunShotAnimator
       value: 
       objectReference: {fileID: 2233475334566502275}

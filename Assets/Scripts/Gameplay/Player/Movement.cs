@@ -107,16 +107,12 @@ public class Movement : MonoBehaviour
 
     private void Move(object sender, Vector2 e)
     {
-        if(e.x > -0.1f && e.x < 0.1f)
-        {
-            moveDirection = new Vector2(e.x, moveDirection.y);
-            return;
-        }
-        else
-        {
-            moveDirection = new Vector2(e.x, moveDirection.y);
-            
-        }
+        moveDirection = new Vector2(e.x, moveDirection.y);
+
+		if(legsAnimator != null)
+		{
+			legsAnimator.SetBool("IsMoving", e.x <= -0.1f || e.x >= 0.1f);
+		}
     }
 
     private void FixedUpdate()

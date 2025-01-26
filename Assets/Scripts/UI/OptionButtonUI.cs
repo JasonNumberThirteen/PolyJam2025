@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class OptionButtonUI : MonoBehaviour
 {
 	private Button button;
-	private AudioSource audioSource;
+	private OptionSelectionAudioSource optionSelectionAudioSource;
 
 	private void Awake()
 	{
 		button = GetComponent<Button>();
-		audioSource = FindAnyObjectByType<AudioSource>();
+		optionSelectionAudioSource = FindAnyObjectByType<OptionSelectionAudioSource>();
 
 		RegisterToListeners(true);
 	}
@@ -34,9 +34,9 @@ public class OptionButtonUI : MonoBehaviour
 
 	private void OnClick()
 	{
-		if(audioSource != null)
+		if(optionSelectionAudioSource != null)
 		{
-			audioSource.Play();
+			optionSelectionAudioSource.Play();
 		}
 	}
 }

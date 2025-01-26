@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5962809585527529844}
   - component: {fileID: 5428778631379027610}
   - component: {fileID: 4105966716576691346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DiggableResourcePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

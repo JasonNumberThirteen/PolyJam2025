@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
 
 	private float currentTime;
 
+	public float GetDuration() => duration;
 	public float GetProgress() => duration > 0f ? currentTime / duration : 0f;
 
 	public void StartTimer()

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
+[RequireComponent(typeof(Animator))]
 public class ShootingEnemy : Enemy
 {
 	[SerializeField, Min(0f)] private float distanceToStopMoving = 5f;
@@ -9,12 +10,21 @@ public class ShootingEnemy : Enemy
 	[SerializeField] private float projectileSpeed = 10f;
 
 	private Timer timer;
+	private Animator animator;
+	private SpriteRenderer spriteRenderer;
+
+	public void ResetAnimatorParameter()
+	{
+		animator.SetBool("IsFiring", false);
+	}
 
 	protected override void Awake()
 	{
 		base.Awake();
 
 		timer = GetComponent<Timer>();
+		animator = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		RegisterToListeners(true);
 	}
@@ -27,6 +37,8 @@ public class ShootingEnemy : Enemy
 		}
 
 		var direction = (target.position - transform.position).normalized;
+
+		spriteRenderer.flipX = direction.x > 0;
 
 		if(!IsCloseToPosition(target.position, distanceToStopMoving))
 		{
@@ -63,6 +75,8 @@ public class ShootingEnemy : Enemy
 
 	private void OnTimerStarted()
 	{
+		animator.SetBool("IsFiring", true);
+		
 		if(flyingProjectilePrefab != null)
 		{
 			Instantiate(flyingProjectilePrefab, transform.position, Quaternion.identity).Setup(damage, projectileSpeed, (target.position - transform.position).normalized);

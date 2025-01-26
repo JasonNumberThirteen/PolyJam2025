@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour
 {
     public static EventHandler<bool> ReloadStatus;
     public static EventHandler<bool> OutOfAmmoStatus;
+    public static EventHandler<int> flipDirection; 
 
     Movement movement;
     [SerializeField] float shotgunKnockback = 5f;
@@ -17,6 +18,7 @@ public class Gun : MonoBehaviour
 	[SerializeField] private AudioSource shotgunReloadSoundAudioSource;
 	[SerializeField] private Animator shotgunShotAnimator;
 	[SerializeField] private Animator shotgunReloadingHandAnimator;
+    [SerializeField] private Transform visuals;
     bool hasShot = false;
     bool outOfAmmo = false;
 
@@ -90,6 +92,8 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        FlipCheck();
+
         if (!hasShot)
             return;
         if (outOfAmmo)
@@ -121,5 +125,37 @@ public class Gun : MonoBehaviour
 
             ReloadStatus.Invoke(this, false);
         }
+    }
+
+    void FlipCheck()
+    {
+        var plane = new Plane(Vector3.back, Vector3.zero);
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (plane.Raycast(ray, out float enter))
+        {
+            var worldPosition = ray.GetPoint(enter);
+
+            if(worldPosition.x < transform.position.x)
+            {
+                if(visuals.transform.localScale.x  > 0)
+                {
+                    FlipVisual();
+                }
+            }
+            else
+            {
+                if (visuals.transform.localScale.x < 0)
+                {
+                    FlipVisual();
+                }
+            }
+        }
+
+    }
+
+    void FlipVisual()
+    {
+        visuals.transform.localScale = new Vector3(-visuals.transform.localScale.x, visuals.transform.localScale.y, visuals.transform.localScale.z);
     }
 }

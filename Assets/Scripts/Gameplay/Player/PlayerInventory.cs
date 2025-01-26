@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
 			numberOfPiecesOfDiggableResourceByType[diggableResourceType] = numberOfPieces;
 		}
 
-		diggableResourcePiecesChangedEvent?.Invoke(diggableResourceType, numberOfPieces);
+		diggableResourcePiecesChangedEvent?.Invoke(diggableResourceType, numberOfPiecesOfDiggableResourceByType[diggableResourceType]);
 	}
 
 	public int GetNumberOfPiecesOfType(DiggableResourceType diggableResourceType) => numberOfPiecesOfDiggableResourceByType.TryGetValue(diggableResourceType, out var numberOfPieces) ? numberOfPieces : 0;

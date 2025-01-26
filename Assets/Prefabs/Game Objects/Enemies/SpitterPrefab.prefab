@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8703219746423282827, guid: bedb9f39e6a191c4295ed1b89cfa5fde, type: 3}
+      propertyPath: deathParticle
+      value: 
+      objectReference: {fileID: 5207259469594015584, guid: 169b82a4ea07a294e96a467be6cc30ac, type: 3}
     m_RemovedComponents:
     - {fileID: 6025867690492918035, guid: bedb9f39e6a191c4295ed1b89cfa5fde, type: 3}
     m_RemovedGameObjects: []

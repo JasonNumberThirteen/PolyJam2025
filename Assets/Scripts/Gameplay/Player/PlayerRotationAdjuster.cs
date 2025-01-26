@@ -3,11 +3,25 @@ using UnityEngine;
 
 public class PlayerRotationAdjuster : MonoBehaviour
 {
-	private void Update()
+    private Plane plane;
+    private void Awake()
+    {
+        plane = new Plane(Vector3.back, Vector3.zero);
+    }
+    private void Update()
 	{
-		var direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-		var angle = (float)Math.Atan2(direction.y, direction.x)*Mathf.Rad2Deg - 90f;
+        
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        if (plane.Raycast(ray, out float enter))
+        {
+            var worldPosition = ray.GetPoint(enter);
+            var direction = worldPosition - transform.position;
+            var angle = (float)Math.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
+        
 	}
 }

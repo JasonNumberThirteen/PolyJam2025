@@ -78,14 +78,20 @@ public class Gun : MonoBehaviour
 
 				var shotDirection = worldPosition - transform.position;
 				var hit2D = Physics2D.Raycast(ray.origin, ray.direction, shotgunRange, shotgunLayerMask);
-				
-				if(hit2D.collider != null && hit2D.collider.TryGetComponent(out Enemy enemy))
-				{
-					enemy.TakeDamage(damage);
-				}
-                else if(hit2D.collider != null)
+
+                Transform spark;
+
+                if (hit2D.collider != null)
                 {
-                    Instantiate(hitSpark, hit2D.point, Quaternion.identity); 
+                    spark = Instantiate(hitSpark, hit2D.point, Quaternion.identity).transform;
+                    Vector2 rotationVector = hit2D.point - (Vector2)transform.position;
+                    Vector3 newDirection = Vector3.RotateTowards(spark.forward, rotationVector, 360, 0.0f);
+                    spark.rotation = Quaternion.LookRotation(newDirection);
+
+                    if(hit2D.collider.TryGetComponent(out Enemy enemy))
+                    {
+                        enemy.TakeDamage(damage);
+                    }
                 }
 
 				if(shotgunShotSoundAudioSource != null)

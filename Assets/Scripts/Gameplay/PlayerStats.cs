@@ -35,7 +35,12 @@ public class PlayerStats : MonoBehaviour
 		oxygenSource = FindAnyObjectByType<OxygenSource>();
 	}
 
-	private void GunReload(object sender, bool e)
+    private void Start()
+    {
+		playerReceivedBulletsEvent.Invoke(shotgunShellAmount);
+    }
+
+    private void GunReload(object sender, bool e)
 	{
 		if(e && (oxygenSource == null || !oxygenSource.PlayerIsAttached()))
 		{

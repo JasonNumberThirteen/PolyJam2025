@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     public static EventHandler<bool> OutOfAmmoStatus;
     public static EventHandler<int> FlipDirection; 
     public static EventHandler FinishedReloadAnim;
+    public static EventHandler PlayerShotBullet;
 
 
     private Movement movement;
@@ -23,6 +24,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform visuals;
     [SerializeField] private PlayerRotationAdjuster rotationAdjuster;
     [SerializeField] private Transform reloadHand;
+    [SerializeField] private GameObject hitSpark;
     bool hasShot = false;
     bool outOfAmmo = false;
     bool isReloading = false;
@@ -72,6 +74,7 @@ public class Gun : MonoBehaviour
                 movement.SendImpulse(forceDirection.normalized * shotgunKnockback);
 
                 hasShot = true;
+                PlayerShotBullet?.Invoke(this, EventArgs.Empty);
 
 				var shotDirection = worldPosition - transform.position;
 				var hit2D = Physics2D.Raycast(ray.origin, ray.direction, shotgunRange, shotgunLayerMask);
@@ -80,6 +83,10 @@ public class Gun : MonoBehaviour
 				{
 					enemy.TakeDamage(damage);
 				}
+                else if(hit2D.collider != null)
+                {
+                    Instantiate(hitSpark, hit2D.point, Quaternion.identity); 
+                }
 
 				if(shotgunShotSoundAudioSource != null)
 				{

@@ -996,6 +996,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1914958470721588725}
     - target: {fileID: 6718776264651107543, guid: 8e9ad960ac9dc444e8de8357099cc569, type: 3}
+      propertyPath: shotgunLayerMask.m_Bits
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718776264651107543, guid: 8e9ad960ac9dc444e8de8357099cc569, type: 3}
       propertyPath: shotgunReloadingHandAnimator
       value: 
       objectReference: {fileID: 401639463907984376}

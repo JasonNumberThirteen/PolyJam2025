@@ -13,6 +13,7 @@ public class DashingEnemy : Enemy
 	private Vector2 dashPoint;
 	private Animator animator;
 	private SpriteRenderer spriteRenderer;
+	
 
 	private readonly float DISTANCE_TO_DASH_POINT_THRESHOLD = 2f;
 	

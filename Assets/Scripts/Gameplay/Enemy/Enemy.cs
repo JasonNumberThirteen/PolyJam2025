@@ -6,8 +6,9 @@ public abstract class Enemy : MonoBehaviour
 	[SerializeField, Min(1)] protected int initialHealth = 1;
 	[SerializeField, Min(0f)] protected float initialMovementSpeed = 1f;
 	[SerializeField, Min(0f)] protected float damage = 10f;
+    [SerializeField] private GameObject deathParticle;
 
-	protected Rigidbody2D rb2D;
+    protected Rigidbody2D rb2D;
 	protected int currentHealth;
 	protected Transform target;
 
@@ -17,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
 
 		if(currentHealth <= 0)
 		{
+			Instantiate(deathParticle,transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}

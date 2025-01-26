@@ -168,6 +168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5510775676355826040, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
+      propertyPath: deathParticle
+      value: 
+      objectReference: {fileID: 5207259469594015584, guid: 169b82a4ea07a294e96a467be6cc30ac, type: 3}
     m_RemovedComponents:
     - {fileID: 297063976732049452, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}
     - {fileID: 1489623032988580440, guid: 2d10fe4f96d45604bbd4a2db7606b551, type: 3}

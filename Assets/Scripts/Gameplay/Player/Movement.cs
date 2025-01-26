@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Animator legsAnimator;
 
     Vector2 moveDirection;
+    Vector2 previousMoveDirection;
 
     bool limitMovement = false;
     float radius = 0f;
@@ -109,10 +110,13 @@ public class Movement : MonoBehaviour
     {
         moveDirection = new Vector2(e.x, moveDirection.y);
 
+        
+
 		if(legsAnimator != null)
 		{
 			legsAnimator.SetBool("IsMoving", e.x <= -0.1f || e.x >= 0.1f);
 		}
+        previousMoveDirection = e;
     }
 
     private void FixedUpdate()
@@ -160,8 +164,9 @@ public class Movement : MonoBehaviour
             }
             else if(rb.velocity.x < -5)
             {
-                rb.velocity = new Vector2(-5, rb.velocity.y);
+                rb.velocity = new Vector2(-5, rb.velocity.y); 
             }
+            
         }
         else
         {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AmmoCounterPanelUI : CounterPanelUI
@@ -24,7 +25,9 @@ public class AmmoCounterPanelUI : CounterPanelUI
 		{
 			if(playerStats != null)
 			{
-				playerStats.playerFiredBulletEvent.AddListener(OnPlayerFiredBullet);
+				Gun.PlayerShotBullet += FiredBullet;
+				Gun.ReloadStatus += OnReloadFinished;
+				//playerStats.playerFiredBulletEvent.AddListener(OnPlayerFiredBullet);
 				playerStats.playerReceivedBulletsEvent.AddListener(OnPlayerReceivedBullets);
 			}
 		}
@@ -32,13 +35,38 @@ public class AmmoCounterPanelUI : CounterPanelUI
 		{
 			if(playerStats != null)
 			{
-				playerStats.playerFiredBulletEvent.RemoveListener(OnPlayerFiredBullet);
-				playerStats.playerReceivedBulletsEvent.RemoveListener(OnPlayerReceivedBullets);
+                Gun.PlayerShotBullet -= FiredBullet;
+                Gun.ReloadStatus -= OnReloadFinished;
+                //playerStats.playerFiredBulletEvent.RemoveListener(OnPlayerFiredBullet);
+                playerStats.playerReceivedBulletsEvent.RemoveListener(OnPlayerReceivedBullets);
 			}
 		}
 	}
 
-	private void OnPlayerFiredBullet()
+    private void OnReloadFinished(object sender, bool e)
+    {
+		if (e)
+			return;
+
+        var ammoIcons = GetComponentsInChildren<AmmoIconUI>();
+
+        if (ammoIcons != null && ammoIcons.Length > 0)
+        {
+            ammoIcons[0].SetReductionState();
+        }
+    }
+
+    private void FiredBullet(object sender, EventArgs e)
+    {
+        var ammoIcons = GetComponentsInChildren<AmmoIconUI>();
+
+        if (ammoIcons != null && ammoIcons.Length > 0)
+        {
+            ammoIcons[0].SetGrayedOutState();
+        }
+    }
+
+    private void OnPlayerFiredBullet()
 	{
 		var ammoIcons = GetComponentsInChildren<AmmoIconUI>();
 

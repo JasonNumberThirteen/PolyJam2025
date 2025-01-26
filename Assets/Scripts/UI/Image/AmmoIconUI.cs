@@ -16,8 +16,17 @@ public class AmmoIconUI : MonoBehaviour
 
 		animator.SetTrigger("SetReductionState");
 
+		//Vector3 previousPos = transform.position;
+		//transform.SetParent(GameObject.Find("Canvas").transform);
+		//transform.position = previousPos;
+
 		triggered = true;
 	}
+
+	public void SetGrayedOutState()
+	{
+        animator.SetTrigger("SetGrayedOutState");
+    }
 
 	public void Destroy()
 	{

@@ -16,6 +16,11 @@ public class BaseNeededResourcesTextUI : TextUI
 		RegisterToListeners(true);
 	}
 
+	private void Start()
+	{
+		UpdateNeededResources();
+	}
+
 	private void OnDestroy()
 	{
 		RegisterToListeners(false);
@@ -51,22 +56,18 @@ public class BaseNeededResourcesTextUI : TextUI
 
 	private void OnBaseLevelledUp(BaseLevel baseLevel)
 	{
-		rockPieces = @base.GetLeftRockPieces();
-		crystalPieces = @base.GetLeftCrystalPieces();
-
-		UpdateText();
+		UpdateNeededResources();
 	}
 
 	private void OnDiggableResourcePiecesChangedEvent(DiggableResourceType diggableResourceType, int numberOfPieces)
 	{
-		if(diggableResourceType == DiggableResourceType.Rock)
-		{
-			rockPieces = @base.GetLeftRockPieces();
-		}
-		else if(diggableResourceType == DiggableResourceType.Crystal)
-		{
-			crystalPieces = @base.GetLeftCrystalPieces();
-		}
+		UpdateNeededResources();
+	}
+
+	private void UpdateNeededResources()
+	{
+		rockPieces = @base.GetLeftRockPieces();
+		crystalPieces = @base.GetLeftCrystalPieces();
 
 		UpdateText();
 	}

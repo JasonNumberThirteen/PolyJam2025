@@ -5,12 +5,14 @@ public class Gun : MonoBehaviour
 {
     public static EventHandler<bool> ReloadStatus;
     public static EventHandler<bool> OutOfAmmoStatus;
-    public static EventHandler<int> flipDirection; 
+    public static EventHandler<int> FlipDirection; 
+    public static EventHandler FinishedReloadAnim;
 
-    Movement movement;
-    [SerializeField] float shotgunKnockback = 5f;
-    [SerializeField] float shotReload = 2f;
-    [SerializeField] float shotReloadTimer = 0f;
+
+    private Movement movement;
+    [SerializeField] private float shotgunKnockback = 5f;
+    [SerializeField] private float shotReload = 2f;
+    [SerializeField] private float shotReloadTimer = 0f;
 	[SerializeField, Min(1)] private int damage = 1;
 	[SerializeField, Min(0.01f)] private float shotgunRange = 10f;
 	[SerializeField] private LayerMask shotgunLayerMask;
@@ -19,8 +21,11 @@ public class Gun : MonoBehaviour
 	[SerializeField] private Animator shotgunShotAnimator;
 	[SerializeField] private Animator shotgunReloadingHandAnimator;
     [SerializeField] private Transform visuals;
+    [SerializeField] private PlayerRotationAdjuster rotationAdjuster;
+    [SerializeField] private Transform reloadHand;
     bool hasShot = false;
     bool outOfAmmo = false;
+    bool isReloading = false;
 
     private void Awake()
     {
@@ -30,6 +35,12 @@ public class Gun : MonoBehaviour
     {
         InputEvents.ShootAction += Shoot;
         OutOfAmmoStatus += OutOfAmmo;
+        ReloadStatus += SetReloadStatus;
+    }
+
+    private void SetReloadStatus(object sender, bool reloadStatus)
+    {
+        isReloading = reloadStatus;
     }
 
     private void OutOfAmmo(object sender, bool e)
@@ -85,6 +96,8 @@ public class Gun : MonoBehaviour
 					shotgunReloadingHandAnimator.SetBool("Triggered", false);
 				}
 
+                if (!rotationAdjuster.IsInReloadRange())
+                    return;
                 ReloadStatus.Invoke(this, true);
             }
         }
@@ -98,6 +111,20 @@ public class Gun : MonoBehaviour
             return;
         if (outOfAmmo)
             return;
+        if (!isReloading)
+        {
+            if (rotationAdjuster.IsInReloadRange())
+            {
+                ReloadStatus.Invoke(this, true);
+            }
+            else
+            {
+                return;
+            }
+        }
+        
+
+
 
         if (shotReloadTimer < shotReload)
         {
@@ -120,6 +147,7 @@ public class Gun : MonoBehaviour
 
 			if(shotgunReloadingHandAnimator != null)
 			{
+                reloadHand.gameObject.SetActive(false);
 				shotgunReloadingHandAnimator.SetBool("Triggered", true);
 			}
 
@@ -141,6 +169,7 @@ public class Gun : MonoBehaviour
                 if(visuals.transform.localScale.x  > 0)
                 {
                     FlipVisual();
+                    FlipDirection.Invoke(this, -1);
                 }
             }
             else
@@ -148,6 +177,7 @@ public class Gun : MonoBehaviour
                 if (visuals.transform.localScale.x < 0)
                 {
                     FlipVisual();
+                    FlipDirection.Invoke(this, 1);
                 }
             }
         }
@@ -158,4 +188,6 @@ public class Gun : MonoBehaviour
     {
         visuals.transform.localScale = new Vector3(-visuals.transform.localScale.x, visuals.transform.localScale.y, visuals.transform.localScale.z);
     }
+
+    
 }

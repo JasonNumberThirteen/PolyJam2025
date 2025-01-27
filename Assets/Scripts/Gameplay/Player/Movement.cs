@@ -20,6 +20,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float speedLimit = 20;
     [SerializeField] private Animator legsAnimator;
 
+    [SerializeField] private ParticleSystem moveParticles;
+
     Vector2 moveDirection;
     Vector2 previousMoveDirection;
 
@@ -187,6 +189,25 @@ public class Movement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -speedLimit);
             }
         }
+
+        if (isGrounded)
+        {
+            if (rb.velocity.x > -0.1 && rb.velocity.x < 0.1)
+            {
+                if (moveParticles.isPlaying)
+                    moveParticles.Stop();
+            }
+            else
+            {
+                if(!moveParticles.isPlaying)
+                    moveParticles.Play(); ;
+            }
+        }
+        else
+        {
+            if (moveParticles.isPlaying)
+                moveParticles.Stop();
+        }    
 
     }
 

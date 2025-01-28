@@ -14,7 +14,7 @@ public class MainMenuUIManager : MonoBehaviour
 
 	private FadeScreenImageUI fadeScreenImageUI;
 
-	private readonly string GAMEPLAY_SCENE_NAME = "Gameplay";
+	private readonly string CUTSCENE_SCENE_NAME = "Cutscene";
 
 	private void Awake()
 	{
@@ -110,7 +110,7 @@ public class MainMenuUIManager : MonoBehaviour
 	{
 		if(!fadeOut)
 		{
-			SceneManager.LoadScene(GAMEPLAY_SCENE_NAME);
+			SceneManager.LoadScene(CUTSCENE_SCENE_NAME);
 		}
 	}
 }

@@ -528,9 +528,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 6451749213551179754, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: moveParticles
+      value: 
+      objectReference: {fileID: 2103486071}
     - target: {fileID: 6489180415049999257, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
       propertyPath: shotReload
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489180415049999257, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+      propertyPath: shotgunRange
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7585651098100561792, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
       propertyPath: Loop
@@ -4017,7 +4025,7 @@ MonoBehaviour:
     spawnDelay: 3
   - enemiesGOs:
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
-    - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
+    - {fileID: 4489296377947863053, guid: 382ea41dea048374eafead45d3fee77d, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
@@ -4030,13 +4038,13 @@ MonoBehaviour:
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
-    - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
+    - {fileID: 4489296377947863053, guid: 382ea41dea048374eafead45d3fee77d, type: 3}
     - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
     - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
-    - {fileID: 7421599133171883259, guid: 6f74eacc16ca2cc4788e1835e832ad47, type: 3}
+    - {fileID: 4489296377947863053, guid: 382ea41dea048374eafead45d3fee77d, type: 3}
     - {fileID: 5615653879162440659, guid: 78f0877a54408af4a9ecf47b42c938f0, type: 3}
     spawnDelay: 2.5
   spawnPoints:
@@ -4499,6 +4507,11 @@ Transform:
   - {fileID: 1915153202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &2103486071 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3332341962104300577, guid: e3e4ed190e954d6439caf85ece657450, type: 3}
+  m_PrefabInstance: {fileID: 152010263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2127295716
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,6 @@ public class MainMenuUIManager : MonoBehaviour
 
 	private void Awake()
 	{
-		Cursor.visible = true;
 		fadeScreenImageUI = FindObjectOfType<FadeScreenImageUI>();
 		
 		RegisterToListeners(true);

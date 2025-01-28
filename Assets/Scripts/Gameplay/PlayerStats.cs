@@ -34,7 +34,6 @@ public class PlayerStats : MonoBehaviour
 	bool isImmuneToAttacks;
 	private void Awake()
 	{
-		Cursor.visible = false;
 		AttachedStatus += ChangeAttachedStatus;
 		Gun.ReloadStatus += GunReload;
 

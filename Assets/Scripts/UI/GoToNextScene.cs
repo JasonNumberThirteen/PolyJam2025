@@ -1,13 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GoToNextScene : MonoBehaviour
 {
-    public string NextSceneName;
-    public void GoToScene()
-    {
-        SceneManager.LoadScene(NextSceneName);
-    }
+	[SerializeField] private string nextSceneName;
+
+	private FadeScreenImageUI fadeScreenImageUI;
+
+	public void GoToScene()
+	{
+		if(fadeScreenImageUI != null)
+		{
+			fadeScreenImageUI.StartFading(false);
+		}
+	}
+
+	private void Awake()
+	{
+		fadeScreenImageUI = FindAnyObjectByType<FadeScreenImageUI>();
+
+		RegisterToListeners(true);
+	}
+
+	private void OnDestroy()
+	{
+		RegisterToListeners(false);
+	}
+
+	private void RegisterToListeners(bool register)
+	{
+		if(register)
+		{
+			if(fadeScreenImageUI != null)
+			{
+				fadeScreenImageUI.fadeWasFinishedEvent.AddListener(OnFadeWasFinished);
+			}
+		}
+		else
+		{
+			if(fadeScreenImageUI != null)
+			{
+				fadeScreenImageUI.fadeWasFinishedEvent.RemoveListener(OnFadeWasFinished);
+			}
+		}
+	}
+
+	private void OnFadeWasFinished(bool fadeOut)
+	{
+		if(!fadeOut)
+		{
+			SceneManager.LoadScene(nextSceneName);
+		}
+	}
 }
